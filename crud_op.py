@@ -107,12 +107,24 @@ class Crud:
         Parameter:
             None
         Return:
-            None
+            list of tables present in a database
         """
         self.my_cursor.execute('SHOW TABLES')
         list_tables = self.my_cursor.fetchall()
         log.info(list_tables)
         return list_tables
+
+    def alter_column(self):
+        """
+        Description:
+            This function is used to alter table student 
+        Parameter:
+            None
+        Return:
+            None
+        """
+        self.my_cursor.execute('ALTER TABLE interns MODIFY age INT(6)')
+        
 
 if __name__=="__main__":
 
