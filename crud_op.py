@@ -99,7 +99,20 @@ class Crud:
             None
         """
         self.my_cursor.execute('CREATE TABLE interns (id int auto_increment primary key, name varchar(50), role varchar(50), age int not null, doj date)')
-        
+
+    def show_tables(self):
+        """
+        Description:
+            This function is used to show the list of tables present in the database in use 
+        Parameter:
+            None
+        Return:
+            None
+        """
+        self.my_cursor.execute('SHOW TABLES')
+        list_tables = self.my_cursor.fetchall()
+        log.info(list_tables)
+        return list_tables
 
 if __name__=="__main__":
 
