@@ -125,6 +125,18 @@ class Crud:
         """
         self.my_cursor.execute('ALTER TABLE interns MODIFY age INT(6)')
         
+    def drop_table(self):
+        """
+        Description:
+            This function is used to drop table interns
+        Parameter:
+            None
+        Return:
+            None
+        """
+        self.my_cursor.execute('DROP TABLE interns')
+
+        
 
 if __name__=="__main__":
 
