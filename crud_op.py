@@ -89,6 +89,17 @@ class Crud:
         else:
             log.info(f'{db_name} database not found!!')
 
+    def create_table(self):
+        """
+        Description:
+            This function is used to create a table
+        Parameter:
+            None
+        Return:
+            None
+        """
+        self.my_cursor.execute('CREATE TABLE interns (id int auto_increment primary key, name varchar(50), role varchar(50), age int not null, doj date)')
+        
 
 if __name__=="__main__":
 
