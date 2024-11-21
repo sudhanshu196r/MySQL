@@ -136,7 +136,6 @@ class Crud:
         """
         self.my_cursor.execute('DROP TABLE interns')
 
-        
 
 if __name__=="__main__":
 
