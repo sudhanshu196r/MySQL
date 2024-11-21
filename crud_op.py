@@ -211,6 +211,23 @@ class Crud:
         except Exception as e:
             log.info(f"Raised Exception : {e}")
 
+    def delete_table_row(self,name):
+        """
+        Description:
+            Function to delete an existing table data
+        Parameter:
+            name: The name of intern based on which the data is to be deleted
+        Return:
+            None
+        """
+        delete_query = "delete from interns where name=%s"
+        try:
+            self.my_cursor.execute(query,name)
+            self.conn.commit()
+            log.info(f"Successfully deleted")
+        except Exception as e:
+            log.info(f"Raised Exception : {e}")
+
 if __name__=="__main__":
 
     crud_obj = Crud()
