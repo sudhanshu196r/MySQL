@@ -170,6 +170,47 @@ class Crud:
         except Exception as e:
             print(f"Raised Exception : {e}")
 
+    
+    def update_table(self,id):
+        """
+        Description:
+            Function is used to update intern's table 
+        Parameter:
+            id: The id of intern to be updated
+        Return:
+            None
+        """
+        sql_query = "select * from interns where id=%s"
+        val = (id,)
+        try:
+            self.my_cursor.execute(sql_query,val)
+            row = self.my_cursor.fetchall()
+            for col in row:
+                name = col[1]
+                role = col[2]
+                age = col[3]
+                doj = col[4]
+            choice = int(input(f"1.Update your name\n2.Update your role\n3.Update your age\nEnter your choice : "))
+            if choice == 1:
+                name = input("Enter name : ")
+            elif choice ==2:
+                role = input("Enter role : ")
+            elif choice == 3:
+                age = input("Enter age: ")
+            else:
+                print("Invalid Input")
+
+            update_query = "Update interns set name=%s,role=%s,age=%s where id=%s"
+            value = (name,role,age,id)
+            try:
+                self.my_cursor.execute(update_query,value)
+                self.conn.commit()
+                log.info("Records Updated")
+            except Exception as e:
+                log.info(f"Raised Exception : {e}")
+        except Exception as e:
+            log.info(f"Raised Exception : {e}")
+
 if __name__=="__main__":
 
     crud_obj = Crud()
