@@ -117,36 +117,36 @@ class Crud:
     def alter_column(self):
         """
         Description:
-            This function is used to alter table student 
+            This function is used to alter table intern
         Parameter:
             None
         Return:
             None
         """
-        self.my_cursor.execute('ALTER TABLE interns MODIFY age INT(6)')
+        self.my_cursor.execute('ALTER TABLE intern MODIFY age INT(6)')
         
     def drop_table(self):
         """
         Description:
-            This function is used to drop table interns
+            This function is used to drop table intern
         Parameter:
             None
         Return:
             None
         """
-        self.my_cursor.execute('DROP TABLE interns')
+        self.my_cursor.execute('DROP TABLE intern')
 
     def insert_into_table(self,values):
         """
         Description:
-            Function to insert data into table student
+            Function to insert data into table intern
         Parameter:
-            values: The values to be inserted into the table student
+            values: The values to be inserted into the table intern
         Return:
             None
         """
         try:
-            insert_query = "INSERT INTO interns(id,name,role,age,doj)VALUES(%s,%s,%s,%s,%s)"
+            insert_query = "INSERT INTO intern(name,role,age,doj)VALUES(%s,%s,%s,%s)"
             self.my_cursor.execute(insert_query,values)
             self.conn.commit()
             print("Record Successfully Inserted")
@@ -163,7 +163,7 @@ class Crud:
             None
         """
         try:
-            self.my_cursor.execute('select * from interns')
+            self.my_cursor.execute('select * from intern')
             rows = self.my_cursor.fetchall()
             for row in rows:
                 print(row)
@@ -180,7 +180,7 @@ class Crud:
         Return:
             None
         """
-        sql_query = "select * from interns where id=%s"
+        sql_query = "select * from intern where id=%s"
         val = (id,)
         try:
             self.my_cursor.execute(sql_query,val)
@@ -200,7 +200,7 @@ class Crud:
             else:
                 print("Invalid Input")
 
-            update_query = "Update interns set name=%s,role=%s,age=%s where id=%s"
+            update_query = "Update intern set name=%s,role=%s,age=%s where id=%s"
             value = (name,role,age,id)
             try:
                 self.my_cursor.execute(update_query,value)
@@ -220,7 +220,7 @@ class Crud:
         Return:
             None
         """
-        delete_query = "delete from interns where name=%s"
+        delete_query = "delete from intern where name=%s"
         try:
             self.my_cursor.execute(query,name)
             self.conn.commit()
@@ -232,18 +232,64 @@ if __name__=="__main__":
 
     crud_obj = Crud()
 
-    try:
-        print("Perform Crud Operations !!")
-        print("1. Create database")
-        print("2. Show Databases")
-        value = int(input("Enter Value: "))
-        if value==1:
-                crud_obj.create_db(input('Database Name: '))
-        elif value==2:
-                crud_obj.show_db()
-        else:
-                print("None")
+    while True:
+        try:
+            print("Perform Crud Operations !!")
+            print("1. Create database")
+            print("2. Show Databases")
+            print("3. Use Database")
+            print("4. Drop Database")
+            print("5. Create Table")
+            print("6. Show Tables")
+            print("7. Alter Interns table column Age")
+            print("8. Drop table interns")
+            print("9. Insert values in interns table")
+            print("10. Display interns table")
+            print("11. Update interns table by id")
+            print("12. Delete interns table row")
+            print("13. Exit")
 
-    except Exception as e:
-        log.info(f'Exception: {e}')
+            value = int(input("Enter Value: "))
+            if value==1:
+                crud_obj.create_db(input('Database Name: '))
+            elif value==2:
+                crud_obj.show_db()
+            elif value==3:
+                db_name = input("Enter DB name: ")
+                crud_obj.use_db(db_name)
+            elif value==4:
+                db_name = input("Enter DB name: ")
+                crud_obj.drop_db(db_name)
+            elif value==5:
+                crud_obj.create_table()
+            elif value==6:
+                crud_obj.show_tables()
+            elif value==7:
+                crud_obj.alter_column()
+            elif value==8:
+                crud_obj.drop_table()
+            elif value==9:
+                name = input("Enter name: ")
+                role = input("Enter role: ")
+                age = int(input("Enter age: "))
+                doj = input("ENter DOJ: ")
+                values = (name,role,age,doj)
+
+                crud_obj.insert_into_table(values)
+            elif value==10:
+                crud_obj.select_from_table()
+
+            elif value==11:
+                id = int(input("Enter id to modify data: "))
+                crud_obj.update_table(id)
+            elif value ==12:
+                name = input("Enter name of intern: ")
+                crud_obj.delete_table_row(name)
+            elif value ==13:
+                break
+            else:
+                    print("None")
+
+        except Exception as e:
+            log.info(f'Exception: {e}')
 
