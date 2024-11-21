@@ -153,6 +153,22 @@ class Crud:
         except Exception as e:
             print(f"Raised Exception : {e}")
 
+    def select_from_table(self):
+        """
+        Description:
+            Function to display intern's table data
+        Parameter:
+            None
+        Return:
+            None
+        """
+        try:
+            self.my_cursor.execute('select * from interns')
+            rows = self.my_cursor.fetchall()
+            for row in rows:
+                print(row)
+        except Exception as e:
+            print(f"Raised Exception : {e}")
 
 if __name__=="__main__":
 
