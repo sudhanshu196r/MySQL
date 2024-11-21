@@ -136,6 +136,23 @@ class Crud:
         """
         self.my_cursor.execute('DROP TABLE interns')
 
+    def insert_into_table(self,values):
+        """
+        Description:
+            Function to insert data into table student
+        Parameter:
+            values: The values to be inserted into the table student
+        Return:
+            None
+        """
+        try:
+            insert_query = "INSERT INTO interns(id,name,role,age,doj)VALUES(%s,%s,%s,%s,%s)"
+            self.my_cursor.execute(insert_query,values)
+            self.conn.commit()
+            print("Record Successfully Inserted")
+        except Exception as e:
+            print(f"Raised Exception : {e}")
+
 
 if __name__=="__main__":
 
